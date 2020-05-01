@@ -8,11 +8,11 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
-var scores, roundScore, activePlayer, dice;
+var scores, roundScore, activePlayer, dice, gameState;
 scores = [0,0];
 roundScore = 0;
 activePlayer = 0; // player 0 0r player 1
-
+gameState="ready";
 dice = Math.ceil(Math.random()*6);
 //console.log(dice);
 /*
@@ -35,7 +35,7 @@ const initGame = {
     init: (()=>{
         scores = [0,0];
         roundScore = 0;
-       
+       gameState="running";
         document.querySelector(`#current-0`).textContent=0;
         document.querySelector(`#current-1`).textContent=0;
         document.querySelector(`#score-0`).textContent=scores[0];
@@ -51,6 +51,9 @@ const initGame = {
 initGame.init();
 
 buttonRoll.addEventListener('click', (event)=>{
+    if(gameState==="end"){
+        return;
+    }
     let dice = Math.ceil(Math.random()*6);
     diceDom.style.display = 'block';
     diceDom.src = 'dice-'+dice+'.png';
@@ -69,18 +72,25 @@ function swithchPlayerStatus(){
     document.querySelector(`.player-${activePlayer}-panel`).classList.add(`active`);
 }
 buttonHold.addEventListener(`click`, (event)=>{
+    if(gameState==="end"){
+        return;
+    }
     let scoreBoard = document.querySelector(`#score-${activePlayer}`);
     scores[activePlayer]+=parseInt(document.querySelector(`#current-${activePlayer}`).textContent);
     scoreBoard.textContent = scores[activePlayer];
     if(scores[0]>=100){
-        stateWin(activePlayer, totalScore);
+        stateWin(activePlayer);
+    }else{
+        swithchPlayerStatus();
     }
-    swithchPlayerStatus();
 });
 
-function stateWin(activePlayer, totalScore){
-    console.log(activePlayer+"  "+totalScore);
-    initGame.init();
+function stateWin(activePlayer){
+    document.querySelector(`#name-${activePlayer}`).textContent="Winner!";
+    document.querySelector(`.dice`).style.display = 'none';
+    document.querySelector(`.player-${activePlayer}-panel`).classList.add(`winner`);
+    gameState="end";
+    //initGame.init();
 }
 /*var x = 2;
 function printX(){
