@@ -35,7 +35,7 @@ const initGame = {
     init: (()=>{
         scores = [0,0];
         roundScore = 0;
-       gameState="running";
+        gameState="running";
         document.querySelector(`#current-0`).textContent=0;
         document.querySelector(`#current-1`).textContent=0;
         document.querySelector(`#score-0`).textContent=scores[0];
@@ -50,6 +50,12 @@ const initGame = {
 }
 initGame.init();
 
+buttonNew.addEventListener('click', (event)=>{
+    document.querySelector(`#name-${activePlayer}`).textContent="Player "+(activePlayer+1);
+    document.querySelector(`.dice`).style.display = 'none';
+    document.querySelector(`.player-${activePlayer}-panel`).classList.remove(`winner`);
+    initGame.init();
+});
 buttonRoll.addEventListener('click', (event)=>{
     if(gameState==="end"){
         return;
@@ -78,7 +84,7 @@ buttonHold.addEventListener(`click`, (event)=>{
     let scoreBoard = document.querySelector(`#score-${activePlayer}`);
     scores[activePlayer]+=parseInt(document.querySelector(`#current-${activePlayer}`).textContent);
     scoreBoard.textContent = scores[activePlayer];
-    if(scores[0]>=100){
+    if(scores[activePlayer]>=10){
         stateWin(activePlayer);
     }else{
         swithchPlayerStatus();
