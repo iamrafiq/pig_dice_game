@@ -8,3 +8,73 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
+var scores, roundScore, activePlayer, dice;
+scores = [0,0];
+roundScore = 0;
+activePlayer = 1; // player 0 0r player 1
+
+dice = Math.ceil(Math.random()*6);
+//console.log(dice);
+/*
+document.querySelector(`#score-${activePlayer}`).textContent=dice;
+ //by query Selector only plain text can be set as textContent
+ //if we need to set an html as a content of an emement then innerHTML must be used
+document.querySelector(`#current-${activePlayer}`).innerHTML = `<em>${dice}<em>`;
+
+var x = document.querySelector(`#score-${activePlayer}`).textContent;
+//console.log(x);
+document.querySelector('.dice').style.dsiplay = 'none'*/
+//document.getElementById("dice").style.display = "none";
+const diceDom = document.querySelector('.dice');
+diceDom.style.display = 'none';
+const buttonRoll = document.querySelector('.btn-roll'); 
+
+buttonRoll.addEventListener('click', (event)=>{
+    var dice = Math.ceil(Math.random()*6);
+    diceDom.style.display = 'block';
+    diceDom.src = 'dice-'+dice+'.png';
+})
+/*var x = 2;
+function printX(){
+    var x = 3;
+    console.log(this.x);
+    console.log(x);
+}
+
+var object = {
+     x : 5,
+     printX: function(){
+         //var x = 9
+        console.log(this.x);
+        console.log(x);   
+     }
+}
+
+var m = object.printX;
+m();
+object.printX();
+printX();
+
+console.log(this);
+console.log(window);
+console.log(this==window);*/
+//2,2,5,2,2,3*/
+
+// var http = require('http'),
+//     fs = require('fs');
+
+
+// fs.readFile('./index.html', function (err, html) {
+//     if (err) {
+//         throw err; 
+//     }       
+//     http.createServer(function(request, response) {  
+//         response.writeHeader(200, {"Content-Type": "text/html"});  
+//         response.write(html);  
+//         response.end();  
+//     }).listen(8000);
+// });
+
+
+
+
