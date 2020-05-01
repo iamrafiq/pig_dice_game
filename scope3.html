@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript">
+        console.log("scope 3");
+         // var x = 3;
+          function printA(){
+              function printB(){
+                function printC(){
+                    x=7;
+                    this.x = 9;
+                    console.log("Print A-> B->C")
+                    console.log(x);
+                }
+                printC();
+              }
+              function printC(){
+                function printB(){
+                    console.log(x);
+                    console.log("Print A-> C->B")
+                }
+                printB();
+              }
+
+            printB();
+            printC();;
+              
+          }
+          printA();
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

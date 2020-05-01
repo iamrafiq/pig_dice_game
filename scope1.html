@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript">
+            var x = 2;
+            function printX(){
+                var x = 3;
+                var b = 7;
+                console.log(this.x);
+                console.log(x);
+                console.log(b);
+            }
+            //console.log(b); // b is decleard in printX() function so it is accessiable in that 
+            //function only
+            var object = {
+                x : 5,
+                printX: function(){
+                    //var x = 9
+                    console.log(this.x);
+                    console.log(x);   
+                }
+            }
+
+            var m = object.printX;
+            m();
+            object.printX();
+            printX();
+
+            console.log(this);
+            console.log(window);
+            console.log(this==window);
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

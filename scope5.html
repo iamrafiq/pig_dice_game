@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript">
+           function Fa(){
+               this.x = 6;
+           }
+           Fa(); // since Fa function called from global scope therefore insed that function
+           // this should be represent the global scop, thats why variable x can be found by window.x
+           console.log(window.x);
+           var y =100;
+           var obj1 = {
+               y :10,
+               printX: function(){
+                   console.log(this.y);
+               }
+           }
+           obj1.printX(); // since printX() function called by using obj1 so  this keyword inside printx
+           // represent obj1 scope so y can't be accessiable by window.y
+           console.log(window.y); // not possible to get y = 10
+
+           //but but but but but
+           // if we assign the method to globla scope then y will be transfared to global schop
+           var m = obj1.printX;
+           m(); // since the value of golobal scope is 100 it will print 100
+
+           console.log(window.y); // since the value of golobal scope is 100 it will print 100
+
+
+           var abc = 999;
+           function a(){
+               // function a has global this 
+               b();// since function b called from function a and function a is in global scope so function b will be called from global schop too
+               // therefore changin the value of abc will change the value fo global scope
+               abc =99
+               console.log(this.abc);
+           }
+           function b(){
+               // function b has global this 
+                c();// since function c called from function b and function b is in global scope so function c will be called from global schop too
+               // therefore changin the value of abc will change the value fo global scope too
+               abc = 98;
+               console.log(this.abc);
+           }
+           function c(){
+               abc =97;
+               console.log(this.abc);
+           }
+
+           a();// since a() called from global schop, global this will transfered to a() automatically
+           console.log(this.abc);
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+//https://www.freecodecamp.org/news/when-and-why-you-should-use-es6-arrow-functions-and-when-you-shouldnt-3d851d7f0b26/
+        var greetingsFromOutsideForArrowFunction = "Yes I am Greetings from outside Arrow";
+        (() => {
+            console.log("Inside arrow function");
+            this.greetings1 = "Greetings from inside arrow function";
+            var self = this;
+            (function () {
+                var greetings = "Hello There";
+                console.log(greetings + " Are you? " + greetings1);
+            })();
+
+            (() => {
+                var greetings = "Hi There";
+                console.log(greetings + " Are you? " + greetingsFromOutsideForArrowFunction);
+            })();
+        })();
+
+        const outsideFunction = "I am from outside function";
+
+        (function (outside) {
+            console.log("Inside function............................");
+            var greet = "Im inside anonimus function"
+            var self = this;
+            (function () {
+                var greetings = "Hello There";
+                console.log(greetings + " Are you? " + greet);
+            })();
+
+            (() => {
+                var greetings = "Hi There";
+                console.log(greetings + " Are you? " + outside);
+            })();
+        })(outsideFunction);
+
+        var obj = {
+            id: 7,
+            printID: function () {
+                console.log(this);
+                console.log("print fun id: " + this.id); // with out this id can't be accissable
+            }
+        };
+
+
+        var id = 10;
+        var objArrow = {
+            id: 8,
+            printID: () => {
+                // in arrow function there is no function scope, in here id 10 is attached
+                console.log(this);
+                console.log("print arrow fun id: " + id); // 
+                console.log("print arrow fun id: " + this.id); // 
+            }
+        }
+
+        obj.printID();
+        objArrow.printID();
+
+        var obj = {
+            id: 42,
+            counter: function counter() {
+                setTimeout(function () {
+                    console.log(this.id);
+                }.bind(this), 1000); // binding this is required to transfer context to callback 
+            }
+        };
+
+        obj.counter();
+
+
+        var obj = {
+            id: 43,
+            counter: function counter() {
+                setTimeout(() => {
+                    console.log(this.id);
+                }, 1000); // no binding required this is automaticallly accissable
+            }
+        };
+
+        obj.counter();
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

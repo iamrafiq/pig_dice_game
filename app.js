@@ -11,7 +11,7 @@ GAME RULES:
 var scores, roundScore, activePlayer, dice;
 scores = [0,0];
 roundScore = 0;
-activePlayer = 1; // player 0 0r player 1
+activePlayer = 0; // player 0 0r player 1
 
 dice = Math.ceil(Math.random()*6);
 //console.log(dice);
@@ -29,10 +29,24 @@ const diceDom = document.querySelector('.dice');
 diceDom.style.display = 'none';
 const buttonRoll = document.querySelector('.btn-roll'); 
 
+(()=>{ // init all function
+    document.querySelector(`#current-0`).textContent=0;
+    document.querySelector(`#current-1`).textContent=0;
+})();
 buttonRoll.addEventListener('click', (event)=>{
     var dice = Math.ceil(Math.random()*6);
     diceDom.style.display = 'block';
     diceDom.src = 'dice-'+dice+'.png';
+    var scoreBoardCurrent = document.querySelector(`#current-${activePlayer}`);
+    if (dice != 1){
+        scoreBoardCurrent.textContent=parseInt(scoreBoardCurrent.textContent)+dice;
+    }else{
+        scoreBoardCurrent.textContent=0;
+        
+        document.querySelector(`.player-${activePlayer}-panel`).classList.remove(`active`);
+        activePlayer = (activePlayer -1)*-1;
+        document.querySelector(`.player-${activePlayer}-panel`).classList.add(`active`);
+    }
 })
 /*var x = 2;
 function printX(){

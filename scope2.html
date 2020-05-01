@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript">
+            var a = 1; // gloabl declaration ---***---
+            console.log(a); // found value of a  in global block
+            console.log(this.a); // this.a point to the value of in this block
+            function printA(){
+                console.log("from global function:"+a);
+            }
+            printA(); // found function in this scope print value 1
+            this.printA(); //this.printA() point the function in this block print a
+
+            {
+               var a = 2;// overiding the value of a in top level scop where a decleard (global declaration)
+               console.log(a); // printing the value from global declaration
+               console.log(this.a); // since the 
+               printA(); // found this method decleard in global scope, glpbal version printed
+               this.printA(); // found this method decleard in global scope, global version printed
+               
+               {
+                  function printA(){ // global version of printA() function override by this local vertion
+                    console.log("from local function:"+a);
+                   }
+                   var a =3; // override global a value by 3
+                   console.log(a);  // printed 3
+                   console.log(this.a); //printed 3
+                   printA(); // now printing local version of this funciton, global version function replace by this local version
+                   // so now the inner verson of printA function is exsit every where.
+                   this.printA();
+                   {
+                       var a = 4;
+                       console.log(a); // 4
+                       console.log(this.a);  // 4 
+                       printA();
+
+                   }
+                   console.log(a); // 4 
+                   console.log(this.a); // 4 
+                   printA(); // 4  local version now global version
+               }
+               console.log(a); // 4 
+               console.log(this.a); // 
+               printA(); // 4 local version now global veriosn
+           }
+           console.log(a); // 4 
+           console.log(this.a); // 4 local veiosn now global verison
+           printA();
+           //out put:11223344444444
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
