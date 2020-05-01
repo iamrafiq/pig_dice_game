@@ -28,26 +28,60 @@ document.querySelector('.dice').style.dsiplay = 'none'*/
 const diceDom = document.querySelector('.dice');
 diceDom.style.display = 'none';
 const buttonRoll = document.querySelector('.btn-roll'); 
+const buttonHold = document.querySelector(`.btn-hold`);
+const buttonNew = document.querySelector('.btn-new');
 
-(()=>{ // init all function
-    document.querySelector(`#current-0`).textContent=0;
-    document.querySelector(`#current-1`).textContent=0;
-})();
+const initGame = {
+    init: (()=>{
+        scores = [0,0];
+        roundScore = 0;
+       
+        document.querySelector(`#current-0`).textContent=0;
+        document.querySelector(`#current-1`).textContent=0;
+        document.querySelector(`#score-0`).textContent=scores[0];
+        document.querySelector(`#score-1`).textContent=scores[1];
+        if(activePlayer===1){
+            document.querySelector(`.player-0-panel`).classList.add('active');
+            document.querySelector(`.player-1-panel`).classList.remove('active');
+        }
+    
+        activePlayer = 0; // player 0 0r player 1
+    })
+}
+initGame.init();
+
 buttonRoll.addEventListener('click', (event)=>{
-    var dice = Math.ceil(Math.random()*6);
+    let dice = Math.ceil(Math.random()*6);
     diceDom.style.display = 'block';
     diceDom.src = 'dice-'+dice+'.png';
-    var scoreBoardCurrent = document.querySelector(`#current-${activePlayer}`);
+    let scoreBoardCurrent = document.querySelector(`#current-${activePlayer}`);
     if (dice != 1){
         scoreBoardCurrent.textContent=parseInt(scoreBoardCurrent.textContent)+dice;
     }else{
-        scoreBoardCurrent.textContent=0;
-        
-        document.querySelector(`.player-${activePlayer}-panel`).classList.remove(`active`);
-        activePlayer = (activePlayer -1)*-1;
-        document.querySelector(`.player-${activePlayer}-panel`).classList.add(`active`);
+        swithchPlayerStatus();
     }
-})
+});
+
+function swithchPlayerStatus(){
+    document.querySelector(`#current-${activePlayer}`).textContent=0;
+    document.querySelector(`.player-${activePlayer}-panel`).classList.remove(`active`);
+    activePlayer = (activePlayer -1)*-1;
+    document.querySelector(`.player-${activePlayer}-panel`).classList.add(`active`);
+}
+buttonHold.addEventListener(`click`, (event)=>{
+    let scoreBoard = document.querySelector(`#score-${activePlayer}`);
+    scores[activePlayer]+=parseInt(document.querySelector(`#current-${activePlayer}`).textContent);
+    scoreBoard.textContent = scores[activePlayer];
+    if(scores[0]>=100){
+        stateWin(activePlayer, totalScore);
+    }
+    swithchPlayerStatus();
+});
+
+function stateWin(activePlayer, totalScore){
+    console.log(activePlayer+"  "+totalScore);
+    initGame.init();
+}
 /*var x = 2;
 function printX(){
     var x = 3;
